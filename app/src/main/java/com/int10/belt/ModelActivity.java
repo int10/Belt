@@ -35,7 +35,6 @@ public class ModelActivity extends AppCompatActivity {
 
 		ModelListView = (ListView)findViewById(R.id.LvModel);
 		SerialEditText = (EditText)findViewById(R.id.EdSerial);
-		SerialEditText.setEnabled(false);
 
 		SerialEditText.setText(serial);
 		db = new dbHelper(ModelActivity.this);
