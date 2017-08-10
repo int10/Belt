@@ -18,6 +18,13 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import android.content.res.AssetManager;
+
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         SerialListView = (ListView)findViewById(R.id.LvSerial);
         SerialListView.requestFocus();
 
+        if(copyAssetsToFilesystem("belt.db", "belt.db")){
+            Log.v("int10", "copy success");
+        } else {
+            Log.v("int10", "copy fail");
+        }
         db = new dbHelper(MainActivity.this);
         SerialCursor = db.select();
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this
@@ -54,6 +66,41 @@ public class MainActivity extends AppCompatActivity {
                 startActivity( intent);
             }
         });
+    }
+
+    private boolean copyAssetsToFilesystem(String assetsSrc, String des){
+        des = getApplicationInfo().dataDir + "/databases/" + des;
+        Log.i("testDb", "Copy "+assetsSrc+" to "+des);
+
+        InputStream istream = null;
+        OutputStream ostream = null;
+        try{
+            Context context  = getApplication();
+            AssetManager am = context.getAssets();
+            istream = am.open(assetsSrc);
+            ostream = new FileOutputStream(des);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = istream.read(buffer))>0){
+                ostream.write(buffer, 0, length);
+            }
+            istream.close();
+            ostream.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            try{
+                if(istream!=null)
+                    istream.close();
+                if(ostream!=null)
+                    ostream.close();
+            }
+            catch(Exception ee){
+                ee.printStackTrace();
+            }
+            return false;
+        }
+        return true;
     }
 
 }
