@@ -68,7 +68,21 @@ public class dbHelper extends SQLiteOpenHelper {
 	public Cursor SelectBeltInModel(String serial, String model)
 	{
 		SQLiteDatabase db=this.getReadableDatabase();
-		String filter = FIELD_SERIAL + "='" + serial + "' and " + FIELD_MODEL + "='" + model +"'";
+		String filter;
+		if(serial == "") {
+			filter = FIELD_MODEL + "='" + model +"'";
+		} else {
+			filter = FIELD_SERIAL + "='" + serial + "' and " + FIELD_MODEL + "='" + model +"'";
+		}
+		Cursor cursor = db.query(TABLE_NAME, null, filter, null, null, null,  "_id");
+		return cursor;
+	}
+
+	public Cursor SelectModelInFilter(String modelfilter)
+	{
+		SQLiteDatabase db=this.getReadableDatabase();
+//		String filter = FIELD_SERIAL + "='" + serial + "' and " + FIELD_MODEL + "='" + model +"'";
+		String filter = FIELD_MODEL + " like '%" + modelfilter +"%'";
 		Cursor cursor = db.query(TABLE_NAME, null, filter, null, null, null,  "_id");
 		return cursor;
 	}
