@@ -17,6 +17,7 @@ public class dbHelper extends SQLiteOpenHelper {
     private final static String DATABASE_NAME="belt.db";
     private final static int DATABASE_VERSION=1;
     private final static String TABLE_NAME="belt";
+    private final static String ENGINE_TABLE_NAME="engine";
     public final static String FIELD_ID="_id";
     public final static String FIELD_SERIAL="serial";
 	public final static String FIELD_MODEL="model";
@@ -46,6 +47,8 @@ public class dbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
         String sql=" DROP TABLE IF EXISTS "+TABLE_NAME;
+        db.execSQL(sql);
+        sql = " DROP TABLE IF EXISTS "+ENGINE_TABLE_NAME;
         db.execSQL(sql);
         onCreate(db);
     }
@@ -85,6 +88,13 @@ public class dbHelper extends SQLiteOpenHelper {
 		Cursor cursor = db.query(TABLE_NAME, new String[]{"_id", FIELD_MODEL }, filter, null, FIELD_MODEL, null,  "_id");
 		return cursor;
 	}
+
+	public Cursor SelectEngineSerial()
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.query(ENGINE_TABLE_NAME, new String[]{"_id", FIELD_SERIAL },null, null, FIELD_SERIAL, null,  FIELD_ID);
+        return cursor;
+    }
 
     public long insert(String Title)
     {

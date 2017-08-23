@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
@@ -27,45 +28,42 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
-
-    private dbHelper db;
-    private Cursor SerialCursor;
-    private ListView SerialListView;
-    private EditText SerialEditText;
+    private Button btnBelt;
+    private Button btnEngine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SerialEditText = (EditText)findViewById(R.id.Filter);
-        SerialListView = (ListView)findViewById(R.id.LvSerial);
-        SerialListView.requestFocus();
 
         if(copyAssetsToFilesystem("belt.db", "belt.db")){
             Log.v("int10", "copy success");
         } else {
             Log.v("int10", "copy fail");
         }
-        db = new dbHelper(MainActivity.this);
-        SerialCursor = db.select();
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this
-                , R.layout.serial, SerialCursor,
-                new String[]{dbHelper.FIELD_SERIAL},
-                new int[]{R.id.Serial});
-        SerialListView.setAdapter(adapter);
 
-        SerialListView.setOnItemClickListener(new OnItemClickListener() {
+        btnBelt = (Button)findViewById(R.id.btnBeltEntrance);
+        btnEngine = (Button)findViewById(R.id.btnEngineEntrance);
+
+        btnBelt.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                // TODO Auto-generated method stub
-                SerialCursor.moveToPosition(arg2);
-                SerialEditText.setText(SerialCursor.getString(1));
+            public void onClick(View v){
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this, ModelActivity.class);
-                intent.putExtra("serial", SerialCursor.getString(1));
+                intent.setClass(MainActivity.this, BeltSerialActivity.class);
                 startActivity( intent);
             }
         });
+
+        btnEngine.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, EngineSerialActivity.class);
+                startActivity( intent);
+            }
+        });
+
+
     }
 
     private boolean copyAssetsToFilesystem(String assetsSrc, String des){
