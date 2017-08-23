@@ -38,6 +38,7 @@
         <activity android:name="BeltActivity" android:label="@string/app_name"></activity>
         <activity android:name="BeltSerialActivity" android:label="@string/app_name"></activity>
         <activity android:name="EngineSerialActivity" android:label="@string/app_name"></activity>
+        <activity android:name="EngineModelActivity" android:label="@string/app_name"></activity>
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />

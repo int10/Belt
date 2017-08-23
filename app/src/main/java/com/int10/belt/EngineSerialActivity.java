@@ -40,10 +40,10 @@ public class EngineSerialActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 // TODO Auto-generated method stub
                 SerialCursor.moveToPosition(arg2);
-//                Intent intent = new Intent();
-//                intent.setClass(EngineSerialActivity.this, ModelActivity.class);
-//                intent.putExtra("serial", SerialCursor.getString(1));
-//                startActivity( intent);
+                Intent intent = new Intent();
+                intent.setClass(EngineSerialActivity.this, EngineModelActivity.class);
+                intent.putExtra("serial", SerialCursor.getString(1));
+                startActivity( intent);
             }
         });
     }

@@ -95,6 +95,14 @@ public class dbHelper extends SQLiteOpenHelper {
         Cursor cursor=db.query(ENGINE_TABLE_NAME, new String[]{"_id", FIELD_SERIAL },null, null, FIELD_SERIAL, null,  FIELD_ID);
         return cursor;
     }
+    public Cursor SelectEngineModelInSerial(String serial)
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+        String filter;
+        filter = FIELD_SERIAL + "='" + serial +"'";
+        Cursor cursor=db.query(ENGINE_TABLE_NAME, null,filter, null, null, null,  FIELD_ID);
+        return cursor;
+    }
 
     public long insert(String Title)
     {
