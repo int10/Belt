@@ -43,7 +43,14 @@ public class BeltActivity extends AppCompatActivity {
 		SerialTextView.setText(serial);
 		ModelTextView.setText(model);
 		db = new dbHelper(BeltActivity.this);
+
 		BeltCursor = db.SelectBeltInModel(serial, model);
+		if(serial.equals("")) {
+			BeltCursor.moveToPosition(0);
+			serial = BeltCursor.getString(BeltCursor.getColumnIndex(dbHelper.FIELD_SERIAL));
+			SerialTextView.setText(serial);
+		}
+
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this
 				, R.layout.beltitem, BeltCursor,
 				new String[]{dbHelper.FIELD_MODELCODE, dbHelper.FIELD_ENGINEERCODE, dbHelper.FIELD_AKOKNUM, dbHelper.FIELD_FACTORYNUM, dbHelper.FIELD_POS},

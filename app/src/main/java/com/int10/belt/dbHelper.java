@@ -61,7 +61,7 @@ public class dbHelper extends SQLiteOpenHelper {
     public Cursor SelectModelInSerial(String serial)
 	{
 		SQLiteDatabase db=this.getReadableDatabase();
-		Cursor cursor=db.query(TABLE_NAME, new String[]{"_id", FIELD_MODEL },FIELD_SERIAL + "='" + serial + "'", null, null, null,  "_id");
+		Cursor cursor=db.query(TABLE_NAME, new String[]{"_id", FIELD_MODEL },FIELD_SERIAL + "='" + serial + "'", null, FIELD_MODEL, null,  "_id");
 		return cursor;
 	}
 
@@ -69,7 +69,7 @@ public class dbHelper extends SQLiteOpenHelper {
 	{
 		SQLiteDatabase db=this.getReadableDatabase();
 		String filter;
-		if(serial == "") {
+		if(serial.equals("")) {
 			filter = FIELD_MODEL + "='" + model +"'";
 		} else {
 			filter = FIELD_SERIAL + "='" + serial + "' and " + FIELD_MODEL + "='" + model +"'";
@@ -81,9 +81,8 @@ public class dbHelper extends SQLiteOpenHelper {
 	public Cursor SelectModelInFilter(String modelfilter)
 	{
 		SQLiteDatabase db=this.getReadableDatabase();
-//		String filter = FIELD_SERIAL + "='" + serial + "' and " + FIELD_MODEL + "='" + model +"'";
 		String filter = FIELD_MODEL + " like '%" + modelfilter +"%'";
-		Cursor cursor = db.query(TABLE_NAME, null, filter, null, null, null,  "_id");
+		Cursor cursor = db.query(TABLE_NAME, new String[]{"_id", FIELD_MODEL }, filter, null, FIELD_MODEL, null,  "_id");
 		return cursor;
 	}
 

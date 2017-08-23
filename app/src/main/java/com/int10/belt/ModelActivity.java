@@ -72,6 +72,9 @@ public class ModelActivity extends AppCompatActivity implements RecognitionListe
 
 		SerialEditText.setText(serial);
 		db = new dbHelper(ModelActivity.this);
+		if (null != ModelCursor) {
+			ModelCursor.close();
+		}
 		ModelCursor = db.SelectModelInSerial(serial);
 		adapter = new SimpleCursorAdapter(this
 				, R.layout.modelitem, ModelCursor,
@@ -369,6 +372,9 @@ public class ModelActivity extends AppCompatActivity implements RecognitionListe
 		}
 		print(nbest.get(0));
 		SerialEditText.setText(nbest.get(0));
+		if (null != ModelCursor) {
+			ModelCursor.close();
+		}
 		ModelCursor = db.SelectModelInFilter(nbest.get(0));
 
 		serial = "";
