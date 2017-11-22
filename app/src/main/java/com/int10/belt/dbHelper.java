@@ -1,12 +1,9 @@
 package com.int10.belt;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.util.Log;
 
 
 /**
@@ -18,11 +15,16 @@ public class dbHelper extends SQLiteOpenHelper {
     private final static int DATABASE_VERSION=1;
     private final static String TABLE_NAME="belt";
     private final static String ENGINE_TABLE_NAME="engine";
+	private final static String SAM_BELT_TABLE_NAME = "sambelt";
     public final static String FIELD_ID="_id";
     public final static String FIELD_SERIAL="serial";
 	public final static String FIELD_MODEL="model";
 	public final static String FIELD_MODELCODE="modelcode";
 	public final static String FIELD_ENGINEERCODE="engineercode";
+	public final static String FIELD_OEM_CODE="oemcode";
+	public final static String FIELD_SAM_MODEL="sammodel";
+	public final static String FIELD_COTY="coty";
+	public final static String FIELD_REMARK="remark";
 	public final static String FIELD_AKOKNUM="akoknum";
 	public final static String FIELD_FACTORYNUM="factorynum";
 	public final static String FIELD_POS="pos";
@@ -104,7 +106,35 @@ public class dbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public long insert(String Title)
+	public Cursor SelectSamBeltSerial()
+	{
+		SQLiteDatabase db=this.getReadableDatabase();
+		Cursor cursor=db.query(SAM_BELT_TABLE_NAME, new String[]{"_id", FIELD_SERIAL },null, null, FIELD_SERIAL, null,  FIELD_ID);
+		return cursor;
+	}
+
+	public Cursor SelectSamBeltModelInSerial(String serial)
+	{
+		SQLiteDatabase db=this.getReadableDatabase();
+		Cursor cursor=db.query(SAM_BELT_TABLE_NAME, new String[]{"_id", FIELD_MODEL },FIELD_SERIAL + "='" + serial + "'", null, FIELD_MODEL, null,  "_id");
+		return cursor;
+	}
+
+	public Cursor SelectSamBeltInModel(String serial, String model)
+	{
+		SQLiteDatabase db=this.getReadableDatabase();
+		String filter;
+		if(serial.equals("")) {
+			filter = FIELD_MODEL + "='" + model +"'";
+		} else {
+			filter = FIELD_SERIAL + "='" + serial + "' and " + FIELD_MODEL + "='" + model +"'";
+		}
+		Cursor cursor = db.query(SAM_BELT_TABLE_NAME, null, filter, null, null, null,  "_id");
+		return cursor;
+	}
+
+
+	public long insert(String Title)
     {
 //        SQLiteDatabase db=this.getWritableDatabase();
 //        ContentValues cv=new ContentValues();

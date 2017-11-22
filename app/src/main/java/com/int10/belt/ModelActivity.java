@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.SimpleCursorAdapter;
 
 import com.baidu.speech.VoiceRecognitionService;
@@ -65,7 +64,7 @@ public class ModelActivity extends AppCompatActivity implements RecognitionListe
 		serial = bundle.getString("serial");
 
 		ModelListView = (ListView)findViewById(R.id.LvModel);
-		SerialEditText = (EditText)findViewById(R.id.EdSerial);
+		SerialEditText = (EditText)findViewById(R.id.EdSamBeltSerial);
 		btn = (Button)findViewById(R.id.BtnStart);
 		speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this, new ComponentName(this, VoiceRecognitionService.class));
 		speechRecognizer.setRecognitionListener(this);

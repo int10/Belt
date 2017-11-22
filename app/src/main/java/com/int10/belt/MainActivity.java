@@ -1,35 +1,22 @@
 package com.int10.belt;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteCursor;
+import android.content.res.AssetManager;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import android.content.res.AssetManager;
+import android.widget.Button;
 
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnBelt;
     private Button btnEngine;
+    private Button btnSamBelt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnBelt = (Button)findViewById(R.id.btnBeltEntrance);
         btnEngine = (Button)findViewById(R.id.btnEngineEntrance);
+        btnSamBelt = (Button)findViewById(R.id.btnSamBeltEntrance);
 
         btnBelt.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -57,13 +45,22 @@ public class MainActivity extends AppCompatActivity {
         btnEngine.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                Log.v("int10", "222222222");
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, EngineSerialActivity.class);
                 startActivity( intent);
             }
         });
 
-
+        btnSamBelt.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.v("int10", "33333333333333333");
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, SamBeltActivity.class);
+                startActivity( intent);
+            }
+        });
     }
 
     private boolean copyAssetsToFilesystem(String assetsSrc, String des){
