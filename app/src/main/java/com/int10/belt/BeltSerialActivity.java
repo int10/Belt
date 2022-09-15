@@ -1,28 +1,17 @@
 package com.int10.belt;
 
-import android.content.Context;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-/**
- * Created by int10 on 2017/8/23.
- */
-
 public class BeltSerialActivity extends AppCompatActivity {
-
     private dbHelper db;
     private Cursor SerialCursor;
     private ListView SerialListView;
@@ -30,7 +19,8 @@ public class BeltSerialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.beltserial);
+        setContentView(R.layout.activity_belt_serial);
+
         SerialEditText = (EditText)findViewById(R.id.Filter);
         SerialListView = (ListView)findViewById(R.id.LvSerial);
         SerialListView.requestFocus();
@@ -42,7 +32,8 @@ public class BeltSerialActivity extends AppCompatActivity {
 //        }
         db = new dbHelper(BeltSerialActivity.this);
         SerialCursor = db.select();
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this
+        SimpleCursorAdapter adapter;
+        adapter = new SimpleCursorAdapter(this
                 , R.layout.serial, SerialCursor,
                 new String[]{dbHelper.FIELD_SERIAL},
                 new int[]{R.id.Serial});
@@ -61,5 +52,4 @@ public class BeltSerialActivity extends AppCompatActivity {
             }
         });
     }
-
 }

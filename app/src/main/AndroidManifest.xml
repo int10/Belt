@@ -1,53 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.int10.belt">
 
     <application
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
-        <meta-data android:name="com.baidu.speech.APP_ID" android:value="9956906"/>
-        <meta-data android:name="com.baidu.speech.API_KEY" android:value="F9K6vMARPZTljImFnbkUZjnx"/>
-        <meta-data android:name="com.baidu.speech.SECRET_KEY" android:value="8NZPNFDydAUS53djii1WY9jjiUu3eAtX"/>
-        <service android:name="com.baidu.speech.VoiceRecognitionService" android:exported="false" />
-
+        android:theme="@style/Theme.Belt"
+        tools:targetApi="31">
         <activity
-            android:name="com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog"
-            android:configChanges="orientation|keyboardHidden|screenLayout"
-            android:theme="@android:style/Theme.Dialog"
-            android:exported="false"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.baidu.action.RECOGNIZE_SPEECH" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".MainActivity">
+            android:name=".BeltActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ModelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SamBeltDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SamBeltModelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SamBeltActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EngineModelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EngineSerialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BeltSerialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ModelActivity" android:label="@string/app_name"/>
-        <activity android:name="BeltActivity" android:label="@string/app_name"/>
-        <activity android:name="BeltSerialActivity" android:label="@string/app_name"/>
-        <activity android:name="EngineSerialActivity" android:label="@string/app_name"/>
-        <activity android:name="EngineModelActivity" android:label="@string/app_name"/>
-        <activity android:name="SamBeltActivity" android:label="@string/app_name"/>
-        <activity android:name="SamBeltModelActivity" android:label="@string/app_name"/>
-        <activity android:name="SamBeltDetailActivity" android:label="@string/app_name"/>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
 
 </manifest>
